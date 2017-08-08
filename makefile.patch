@@ -1,0 +1,18 @@
+*** a/Makefile	2017-08-08 21:26:34.226334770 +0100
+--- b/Makefile	2017-08-08 21:27:57.049970824 +0100
+***************
+*** 605,610 ****
+--- 605,617 ----
+  # Defaults to vmlinux, but the arch makefile usually adds further targets
+  all: vmlinux
+  
++ # Force no-pie for distro compilers that enable pie by default
++ # See: https://askubuntu.com/questions/851433/kernel-doesnt-support-pic-mode-for-compiling
++ KBUILD_CFLAGS += $(call cc-option, -fno-pie)
++ KBUILD_CFLAGS += $(call cc-option, -no-pie)
++ KBUILD_AFLAGS += $(call cc-option, -fno-pie)
++ KBUILD_CPPFLAGS += $(call cc-option, -fno-pie)
++ 
+  # The arch Makefile can set ARCH_{CPP,A,C}FLAGS to override the default
+  # values of the respective KBUILD_* variables
+  ARCH_CPPFLAGS :=

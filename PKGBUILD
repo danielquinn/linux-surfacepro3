@@ -71,6 +71,10 @@ prepare() {
   patch -p1 -i "${srcdir}/touchscreen_multitouch_fixes1.patch"
   patch -p1 -i "${srcdir}/touchscreen_multitouch_fixes2.patch"
 
+  # Patch the Makefile for modern versions of GCC
+  # See: https://askubuntu.com/questions/851433/kernel-doesnt-support-pic-mode-for-compiling
+  patch -p1 -i "${srcdir}/makefile.patch"
+
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
   else
